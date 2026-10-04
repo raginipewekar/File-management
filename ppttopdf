@@ -1,0 +1,19 @@
+import os
+import win32com.client
+
+folder = r"C:\Users\ragin\OneDrive\Desktop\python pdf handling"
+
+ppt = win32com.client.Dispatch("PowerPoint.Application")
+
+for file in os.listdir(folder):
+    if file.lower().endswith(".pptx"):
+        input_file = os.path.join(folder, file)
+        output_file = os.path.join(folder, os.path.splitext(file)[0] + ".pdf")
+
+        presentation = ppt.Presentations.Open(input_file)
+        presentation.SaveAs(output_file, 32)
+        presentation.Close()
+
+ppt.Quit()
+
+print("Done!")
